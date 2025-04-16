@@ -26,8 +26,6 @@ with col1:
 with col2:
    st.page_link("pages/Check_Out_Form.py", label="Check Out Form", icon="🔒")
 
-
-
 # footer
 st.markdown("---")
 st.caption("Provided by SJSU")

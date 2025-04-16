@@ -61,6 +61,12 @@ st.subheader("Incident Contact Information")
 cell_phone = st.text_input("Cell Phone #", placeholder='e.g., (123)456-7890')
 email = st.text_input("Email", placeholder='e.g., john.doe@sanjoseca.gov')
 
+# For verification
+st.header("For verification", divider="blue")
+st.text("by digitally signing this form, you are agreeing that this is information is correct and accurate")
+signature = st.text_input("Signature", placeholder='e.g., Your Name')
+
+
 # Submit Button
 if st.button("Submit"):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -93,7 +99,9 @@ if st.button("Submit"):
 
     st.success("Check-in submitted and saved to Excel!")
 
-
+# footer
+st.markdown("---")
+st.caption("Provided by SJSU")
 
 
 

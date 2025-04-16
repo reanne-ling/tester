@@ -65,3 +65,7 @@ if st.button("Check-Out!"):
             st.error("No check-in data found in the Excel file.")
     else:
         st.error("Please provide both first and last name for check-out.")
+
+# footer
+st.markdown("---")
+st.caption("Provided by SJSU")
