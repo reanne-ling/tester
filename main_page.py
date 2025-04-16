@@ -20,14 +20,18 @@ st.write += ("Please come and explore our applications for your needs!")
 # for table of contents
 st.subheader('For Users', divider= 'blue')
 st.text("Come explore our pages! We aim to help make sure you are registered properly.") 
-col1, col2 = st.columns(2)
-with col1:
-   st.page_link("pages/Gold_Check_In_Form.py", label="Check In Form (Gold Team)", icon="📋")
-   st.page_link("pages/Gold_Check_Out_Form.py", label="Check Out Form (Gold Team)", icon="🔒")
 
+col1, col2 = st.columns(2)
+
+st.text("for the Gold Team")
+with col1:
+   st.page_link("pages/Gold_Check_In_Form.py", label="Check In Form", icon="📋")
+   st.page_link("pages/Gold_Check_Out_Form.py", label="Check Out Form", icon="🔒")
+
+st.text("for the Blue Team")
 with col2:
-   st.page_link("pages/Blue_Check_In_Form.py", label="Check In Form (Blue Team)", icon="📋")
-   st.page_link("pages/Blue_Check_Out_Form.py", label="Check Out Form (Blue Team)", icon="🔒")
+   st.page_link("pages/Blue_Check_In_Form.py", label="Check In Form", icon="📋")
+   st.page_link("pages/Blue_Check_Out_Form.py", label="Check Out Form", icon="🔒")
 
 st.subheader('For Administrators', divider= 'blue')
 col3, col4 = st.columns(2)
