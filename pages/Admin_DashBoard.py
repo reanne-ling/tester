@@ -8,7 +8,7 @@ st.title("Admin Log Viewer")
 
 # Simple login simulation (optional)
 admin_password = st.text_input("Enter admin password", type="password")
-if admin_password != "your_secure_password": # this is where you enter in your password
+if admin_password != "admin-password": # this is where you enter in your password
     st.warning("Enter correct password to view logs.")
     st.stop()
 
