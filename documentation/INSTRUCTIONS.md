@@ -7,7 +7,7 @@
 
 # To run the code: 
     enter pip3 install (anything that says import on the top of main_page.py document)
-    ie. pip3 install streamlit, pandas, numpy, openai, 
+    ie. pip3 install streamlit, pandas, numpy, openai, gspread
 
 # to make sure its in the right path
     used pwd to find out the path

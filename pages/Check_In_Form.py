@@ -3,8 +3,20 @@ import pandas as pd
 from datetime import datetime
 import os
 
+    # import gspread
+    # from oauth2client.service_account import ServiceAccountCredentials
+
 # Excel filename
 EXCEL_FILE = "checkin_log.xlsx"
+
+# Set up the Google API credentials
+    # scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/auth/spreadsheets', "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
+    # creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+    # client = gspread.authorize(creds)
+
+# Open the sheet (by title or URL)
+    # spreadsheet = client.open("Check-In Log")  # Replace with your sheet name
+    # sheet = spreadsheet.sheet1  # Use first sheet
 
 # for it to pop up on the sidebar
 st.sidebar.markdown("# Check-In Form 📋")
@@ -105,3 +117,7 @@ if "checkin_data" in st.session_state:
             df_combined = df_checkout
 
         df_combined
+
+# Load the data into a pandas DataFrame
+    # data = sheet.get_all_records()
+    # df_existing = pd.DataFrame(data)
