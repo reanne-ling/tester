@@ -3,37 +3,29 @@ import pandas as pd
 from datetime import datetime
 import os
 
-    # import gspread
-    # from oauth2client.service_account import ServiceAccountCredentials
-
 # Excel filename
 EXCEL_FILE = "checkin_log.xlsx"
-
-# Set up the Google API credentials
-    # scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/auth/spreadsheets', "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
-    # creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
-    # client = gspread.authorize(creds)
-
-# Open the sheet (by title or URL)
-    # spreadsheet = client.open("Check-In Log")  # Replace with your sheet name
-    # sheet = spreadsheet.sheet1  # Use first sheet
 
 # for it to pop up on the sidebar
 st.sidebar.markdown("# Check-In Form 📋")
 
 # Title
 st.title("Check-In Form 📋")
-
-st.header("Personnel Info", divider='blue')
 st.text('Please enter in the following information')
 
-# Section 1: Text Inputs
+# ICS 219-5 Personnel
+st.header("ICS 219-5 Personnel", divider='blue')
+
 st_unit = st.text_input("ST/Unit", placeholder='e.g., Unit Name')
-last_name = st.text_input("Last Name", placeholder='e.g., Doe')
-first_name = st.text_input("First Name", placeholder='e.g., John')
+
+col7, col8 = st.columns(2)
+with col7:
+    last_name = st.text_input("Last Name", placeholder='e.g., Doe')
+with col8:
+    first_name = st.text_input("First Name", placeholder='e.g., John')
+
 position = st.text_input("Position/Title", placeholder='e.g., Manager')
-cell_phone = st.text_input("Cell Phone #", placeholder='e.g., (123)456-7890')
-email = st.text_input("Email", placeholder='e.g., john.doe@sanjoseca.gov')
+primary_cell = st.text_input("Primary Contact Information (Cell Phone #)", placeholder='e.g., (123)456-7890')
 departure_point = st.text_input("Departure Point", placeholder='e.g., point')
 
 st.text('ETD (Estimated Time of Departure)')
@@ -62,6 +54,13 @@ with col6:
 
 remarks = st.text_area("Remarks", placeholder='e.g., Position Title')
 
+# EOC Check-in List (EOC 211)
+st.header("EOC Check-in List (EOC 211)", divider='blue')
+st.subheader("Incident Contact Information")
+
+cell_phone = st.text_input("Cell Phone #", placeholder='e.g., (123)456-7890')
+email = st.text_input("Email", placeholder='e.g., john.doe@sanjoseca.gov')
+
 # Submit Button
 if st.button("Submit"):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -71,6 +70,7 @@ if st.button("Submit"):
         "Last Name": last_name,
         "First Name": first_name,
         "Position/Title": position,
+        "Primary Contact Information": primary_cell,
         "Cell Phone": cell_phone,
         "Email": email,
         "Departure Point": departure_point,
@@ -92,6 +92,9 @@ if st.button("Submit"):
     df_combined.to_excel(EXCEL_FILE, index=False)
 
     st.success("Check-in submitted and saved to Excel!")
+
+
+
 
 
 # Check-Out Section (Only visible if Check-in data exists)
@@ -117,6 +120,20 @@ if "checkin_data" in st.session_state:
             df_combined = df_checkout
 
         df_combined
+
+
+
+# import gspread
+# from oauth2client.service_account import ServiceAccountCredentials
+
+# Set up the Google API credentials
+    # scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/auth/spreadsheets', "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
+    # creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+    # client = gspread.authorize(creds)
+
+# Open the sheet (by title or URL)
+    # spreadsheet = client.open("Check-In Log")  # Replace with your sheet name
+    # sheet = spreadsheet.sheet1  # Use first sheet
 
 # Load the data into a pandas DataFrame
     # data = sheet.get_all_records()
