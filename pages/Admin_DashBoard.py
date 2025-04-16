@@ -4,6 +4,9 @@ import os
 
 EXCEL_FILE = "checkin_log.xlsx"
 
+# for it to pop up on the sidebar
+st.sidebar.markdown("# Administration DashBoards 🔒")
+
 st.title("Admin Log Viewer")
 st.caption("for testing purposes the password is: admin")
 
@@ -12,6 +15,8 @@ admin_password = st.text_input("Enter admin password", type="password")
 if admin_password != "admin": # this is where you enter in your password
     st.warning("Enter correct password to view logs.")
     st.stop()
+
+st.caption('this page should provide you a space to be able to view logs and filter out the records based on the excel/google sheet')
 
 if os.path.exists(EXCEL_FILE):
     df = pd.read_excel(EXCEL_FILE)
