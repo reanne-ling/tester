@@ -25,6 +25,7 @@ with col1:
    st.page_link("pages/Check_In_Form.py", label="Check In Form", icon="📋")
 with col2:
    st.page_link("pages/Check_Out_Form.py", label="Check Out Form", icon="🔒")
+   st.page_link("pages/Admin_DashBoard.py", label="Admin DashBoard", icon="🔒")
 
 # footer
 st.markdown("---")
