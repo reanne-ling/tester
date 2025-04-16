@@ -73,4 +73,4 @@ if st.button("Check-Out!"):
 
 # footer
 st.markdown("---")
-st.caption("Provided by SJSU")
+st.caption("Provided by SJSU • Powered by Streamlit ")

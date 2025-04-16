@@ -38,4 +38,4 @@ with col4:
 
 # footer
 st.markdown("---")
-st.caption("Provided by SJSU")
+st.caption("Provided by SJSU • Powered by Streamlit ")
