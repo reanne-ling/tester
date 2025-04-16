@@ -5,6 +5,7 @@ import os
 EXCEL_FILE = "checkin_log.xlsx"
 
 st.title("Admin Log Viewer")
+st.caption("for testing purposes the password is: admin")
 
 # Simple login simulation (optional)
 admin_password = st.text_input("Enter admin password", type="password")
@@ -34,4 +35,3 @@ else:
 # footer
 st.markdown("---")
 st.caption("Provided by SJSU")
-st.caption("for testing purposes the password is: admin")

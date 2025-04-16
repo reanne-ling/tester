@@ -16,6 +16,7 @@ st.sidebar.markdown("# Check-Out Form 📋")
 
 # Title
 st.title("Personnel Check-Out Form 📋")
+st.caption("for testing purposes the password is: blue")
 
 # Simple login simulation (optional)
 admin_password = st.text_input("Enter password", type="password")
@@ -73,4 +74,3 @@ if st.button("Check-Out!"):
 # footer
 st.markdown("---")
 st.caption("Provided by SJSU")
-st.caption("for testing purposes the password is: blue")

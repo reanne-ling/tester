@@ -29,8 +29,12 @@ with col2:
    st.page_link("pages/Blue_Check_In_Form.py", label="Check In Form (Blue Team)", icon="📋")
    st.page_link("pages/Blue_Check_Out_Form.py", label="Check Out Form (Blue Team)", icon="🔒")
 
-st.subheader('For Admins', divider= 'blue')
-st.page_link("pages/Admin_DashBoard.py", label="Admin DashBoard", icon="🔒")
+st.subheader('For Administrators', divider= 'blue')
+col3, col4 = st.columns(2)
+with col3:
+   st.text("For DashBoarding,") 
+with col4:
+   st.page_link("pages/Admin_DashBoard.py", label="Admin DashBoard", icon="🔒")
 
 # footer
 st.markdown("---")
