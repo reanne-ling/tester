@@ -6,6 +6,7 @@ from datetime import datetime
 # import os
 # import gspread
 
+
 # for it to pop up on the sidebar
 st.sidebar.markdown("# Home 🏠")
 
