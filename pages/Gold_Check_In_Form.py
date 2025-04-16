@@ -24,7 +24,7 @@ with col7:
 with col8:
     first_name = st.text_input("First Name", placeholder='e.g., John')
 
-position = st.text_input("Position/Title", placeholder='e.g., Manager')
+position = st.text_input("Position/Title", placeholder='e.g., Your Job Title')
 primary_cell = st.text_input("Primary Contact Information (Cell Phone #)", placeholder='e.g., (123)456-7890')
 departure_point = st.text_input("Departure Point", placeholder='e.g., point')
 
