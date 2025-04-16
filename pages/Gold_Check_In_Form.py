@@ -11,6 +11,13 @@ st.sidebar.markdown("# Check-In Form 📋")
 
 # Title
 st.title("Personnel Check-In Form 📋")
+
+# Simple login simulation (optional)
+admin_password = st.text_input("Enter password", type="password")
+if admin_password != "gold-team": # this is where you enter in your password
+    st.warning("Enter correct password to access this form.")
+    st.stop()
+
 st.text('Please enter in the following information')
 
 # ICS 219-5 Personnel

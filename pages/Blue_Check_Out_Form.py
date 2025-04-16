@@ -16,6 +16,13 @@ st.sidebar.markdown("# Check-Out Form 📋")
 
 # Title
 st.title("Personnel Check-Out Form 📋")
+
+# Simple login simulation (optional)
+admin_password = st.text_input("Enter password", type="password")
+if admin_password != "blue-team": # this is where you enter in your password
+    st.warning("Enter correct password to access this form.")
+    st.stop()
+
 st.text('Please enter the following information to record check-out time.')
 
 # Input fields for First Name, Last Name, and Check-Out Time
