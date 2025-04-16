@@ -12,27 +12,43 @@ st.sidebar.markdown("# Check-In Form 📋")
 # Title
 st.title("Check-In Form 📋")
 
+st.header("Personnel Info", divider='blue')
+st.text('Please enter in the following information')
+
 # Section 1: Text Inputs
-st.header("Personnel Info")
-st_unit = st.text_input("ST/Unit")
-last_name = st.text_input("Last Name")
-first_name = st.text_input("First Name")
-position = st.text_input("Position/Title")
-cell_phone = st.text_input("Cell Phone #")
-email = st.text_input("Email")
-departure_point = st.text_input("Departure Point")
-remarks = st.text_area("Remarks")
+st_unit = st.text_input("ST/Unit", placeholder='e.g., Unit Name')
+last_name = st.text_input("Last Name", placeholder='e.g., Doe')
+first_name = st.text_input("First Name", placeholder='e.g., John')
+position = st.text_input("Position/Title", placeholder='e.g., Manager')
+cell_phone = st.text_input("Cell Phone #", placeholder='e.g., (123)456-7890')
+email = st.text_input("Email", placeholder='e.g., john.doe@sanjoseca.gov')
+departure_point = st.text_input("Departure Point", placeholder='e.g., point')
 
-# Section 2: Dropdown
-st.header("Transportation")
-transportation = st.selectbox("Select Transportation", ["POV", "Rental", "Van", "Bus", "Other"])
+st.text('ETD (Estimated Time of Departure)')
+col1, col2 = st.columns(2)
+with col1:
+    etd_date = st.date_input("Date", key="etd_date")
+with col2:
+    etd_time = st.time_input("Time", key="etd_time")
 
-# Section 3: Date & Time Inputs
-st.header("Timing Info")
-etd = st.time_input("ETD (Estimated Time of Departure)")
-eta = st.time_input("ETA (Estimated Time of Arrival)")
-date_ordered = st.date_input("Date Ordered")
-time_ordered = st.time_input("Time Ordered")
+st.text('ETA (Estimated Time of Arrival)')
+col3, col4 = st.columns(2)
+with col3:
+    eta_date = st.date_input("Date", key="eta_date")
+with col4:
+    eta_time = st.time_input("Time", key="eta_time")
+
+transportation = st.selectbox("Select Transportation", ["Vehicle", "Bus", "Air", "Other"], placeholder='Bus')
+other = st.text_input("If Other:", placeholder='bus')
+
+st.text('Date/Time Ordered')
+col5, col6 = st.columns(2)
+with col5:
+    order_date = st.date_input("Date", key="order_date")
+with col6:
+    order_time = st.time_input("Time", key="order_time")
+
+remarks = st.text_area("Remarks", placeholder='e.g., Position Title')
 
 # Submit Button
 if st.button("Submit"):
@@ -48,10 +64,9 @@ if st.button("Submit"):
         "Departure Point": departure_point,
         "Remarks": remarks,
         "Transportation": transportation,
-        "ETD": etd.strftime("%H:%M"),
-        "ETA": eta.strftime("%H:%M"),
-        "Date Ordered": date_ordered.strftime("%Y-%m-%d"),
-        "Time Ordered": time_ordered.strftime("%H:%M"),
+        "ETD": f"{etd_date.strftime('%m/%d/%Y')} {etd_time.strftime('%H:%M')}",
+        "ETA": f"{eta_date.strftime('%m/%d/%Y')} {eta_time.strftime('%H:%M')}",
+        "Date/Time Ordered": f"{order_date.strftime('%m/%d/%Y')} {order_time.strftime('%H:%M')}"
     }
 
     df_new = pd.DataFrame([data])
@@ -66,3 +81,27 @@ if st.button("Submit"):
 
     st.success("Check-in submitted and saved to Excel!")
 
+
+# Check-Out Section (Only visible if Check-in data exists)
+if "checkin_data" in st.session_state:
+    st.header("Check-Out Section")
+    st.text(f"Welcome back, {st.session_state.checkin_data['First Name']} {st.session_state.checkin_data['Last Name']}!")
+
+    # Check-out button
+    if st.button("Check-Out"):
+        checkout_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        checkout_data = {
+            "Timestamp": checkout_timestamp,
+            "Check-Out": f"{checkout_timestamp}"
+        }
+
+        # Optionally, you can add the check-out data to the same Excel sheet.
+        df_checkout = pd.DataFrame([checkout_data])
+
+        if os.path.exists(EXCEL_FILE):
+            df_existing = pd.read_excel(EXCEL_FILE)
+            df_combined = pd.concat([df_existing, df_checkout], ignore_index=True)
+        else:
+            df_combined = df_checkout
+
+        df_combined

@@ -7,11 +7,12 @@
 
 # To run the code: 
     enter pip3 install (anything that says import on the top of main_page.py document)
-    ie. pip3 install streamlit, pandas, numpy, openai, praw
+    ie. pip3 install streamlit, pandas, numpy, openai, 
 
 # to make sure its in the right path
+    used pwd to find out the path
     cd insert/path/for/this/file 
-   ie. /Users/name/Documents/GitHub/118i-sapphire-team
+     ie. /Users/reanne/Desktop/school/sjsu/classwork/spring25/BUS4 119A/tester
     ls : to check what is found in that folder 
 
 # launching: 

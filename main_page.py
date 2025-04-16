@@ -14,12 +14,12 @@ st.sidebar.markdown("# Home 🏠")
 st.title('EOC Check-In/Check-Out System')
 
 # introduction
-st.write = "Hi! Welcome to EOC's Check-In/Check Out System"
-st.write += "Please come and explore our applications for your needs!"
+st.write = ("Hi! Welcome to EOC's Check-In/Check Out System")
+st.write += ("Please come and explore our applications for your needs!")
 
 # for table of contents
 st.subheader('Table of Contents', divider= 'blue')
-message = "Come explore our pages! We aim to help make sure you are registered properly." 
+st.text("Come explore our pages! We aim to help make sure you are registered properly.") 
 col1, col2 = st.columns(2)
 with col1:
    st.page_link("pages/Check_In_Form.py", label="Check In Form", icon="📋")
