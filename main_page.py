@@ -22,14 +22,12 @@ st.subheader('For Users', divider= 'blue')
 st.text("Come explore our pages! We aim to help make sure you are registered properly.") 
 
 col1, col2 = st.columns(2)
-
-st.text("for the Gold Team")
 with col1:
+   st.text("for the GOLD Team:")
    st.page_link("pages/Gold_Check_In_Form.py", label="Check In Form", icon="📋")
    st.page_link("pages/Gold_Check_Out_Form.py", label="Check Out Form", icon="🔒")
-
-st.text("for the Blue Team")
 with col2:
+   st.text("for the BLUE Team:")
    st.page_link("pages/Blue_Check_In_Form.py", label="Check In Form", icon="📋")
    st.page_link("pages/Blue_Check_Out_Form.py", label="Check Out Form", icon="🔒")
 
