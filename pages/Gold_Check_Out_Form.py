@@ -19,7 +19,7 @@ st.title("Personnel Check-Out Form 📋")
 
 # Simple login simulation (optional)
 admin_password = st.text_input("Enter password", type="password")
-if admin_password != "gold-team": # this is where you enter in your password
+if admin_password != "gold": # this is where you enter in your password
     st.warning("Enter correct password to access this form.")
     st.stop()
 
@@ -73,3 +73,4 @@ if st.button("Check-Out!"):
 # footer
 st.markdown("---")
 st.caption("Provided by SJSU")
+st.caption("for testing purposes the password is: gold")
