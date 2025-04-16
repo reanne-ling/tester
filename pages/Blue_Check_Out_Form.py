@@ -15,10 +15,7 @@ EXCEL_FILE = "checkin_log.xlsx"
 st.sidebar.markdown("# Check-Out Form 📋")
 
 # Title
-st.title("Check-Out Form 📋")
-
-# Check-Out Section
-st.header("Personnel Check-Out", divider='blue')
+st.title("Personnel Check-Out Form 📋")
 st.text('Please enter the following information to record check-out time.')
 
 # Input fields for First Name, Last Name, and Check-Out Time

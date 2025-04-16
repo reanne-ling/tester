@@ -10,7 +10,7 @@ EXCEL_FILE = "checkin_log.xlsx"
 st.sidebar.markdown("# Check-In Form 📋")
 
 # Title
-st.title("Check-In Form 📋")
+st.title("Personnel Check-In Form 📋")
 st.text('Please enter in the following information')
 
 # ICS 219-5 Personnel
@@ -43,6 +43,9 @@ with col4:
     eta_time = st.time_input("Time", key="eta_time")
 
 transportation = st.selectbox("Select Transportation", ["Vehicle", "Bus", "Air", "Other"], placeholder='Bus')
+    # based on devin's there is also
+        # POV (personal vehicle),
+        # AOV (assigned vehicle), 
 other = st.text_input("If Other:", placeholder='bus')
 
 st.text('Date/Time Ordered')
