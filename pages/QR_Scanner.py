@@ -57,3 +57,7 @@ if ctx.video_transformer:
         # Reset qr_data so it doesn't keep saving
         ctx.video_transformer.qr_data = None
 
+
+# footer
+st.markdown("---")
+st.caption("Provided by SJSU • Powered by Streamlit ")
