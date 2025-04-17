@@ -14,6 +14,10 @@ if admin_password != "admin": # this is where you enter in your password
     st.warning("Enter correct password to view logs.")
     st.stop()
 
+st.text('Please enter in the following information')
+
+# ICS 219-5 Personnel
+st.header("ICS 219-5 Personnel", divider='blue')
 
 # footer
 st.markdown("---")
