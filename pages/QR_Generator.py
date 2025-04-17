@@ -11,7 +11,7 @@ st.caption("for testing purposes the password is: admin")
 # Simple login simulation (optional)
 admin_password = st.text_input("Enter admin password", type="password")
 if admin_password != "admin": # this is where you enter in your password
-    st.warning("Enter correct password to view logs.")
+    st.warning("Enter correct password to generate QRs.")
     st.stop()
 
 st.text('Please enter in the following information')
