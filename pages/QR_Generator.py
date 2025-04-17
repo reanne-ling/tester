@@ -1,0 +1,1 @@
+# this will be a page that is accessible for admins and the team to create qr codes. 
