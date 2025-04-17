@@ -6,6 +6,9 @@ import cv2
 from pyzbar import pyzbar
 import os
 
+# needed to enter this into terminal to run:
+    # pip install streamlit-webrtc opencv-python pyzbar
+
 EXCEL_FILE = "qr_checkin_log.xlsx"
 
 # Title
