@@ -4,8 +4,6 @@ from datetime import datetime
 from sheets_connector import connect_to_google_sheet
 from gspread_dataframe import get_as_dataframe, set_with_dataframe
 
-
-
 # for it to pop up on the sidebar
 st.sidebar.markdown("# Check-In Form 📋")
 
