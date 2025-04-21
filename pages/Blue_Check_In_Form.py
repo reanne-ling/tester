@@ -112,4 +112,4 @@ if st.button("Submit"):
 
 # footer
 st.markdown("---")
-st.caption("Provided by SJSU • Powered by Streamlit ")
+st.caption("Provided by SJSU • Powered by Streamlit tester")
