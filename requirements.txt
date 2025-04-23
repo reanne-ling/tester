@@ -1,0 +1,11 @@
+gspread
+google-auth
+os
+oauth2client
+pyzbar
+streamlit
+pandas
+datetime
+cv2
+# sheets_connector import connect_to_google_sheet
+# from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
