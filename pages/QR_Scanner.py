@@ -4,19 +4,16 @@ from datetime import datetime
 from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 import cv2
 from pyzbar import pyzbar
-import os
 
-# needed to enter this into terminal to run:
-    # pip install streamlit-webrtc opencv-python pyzbar
-
-EXCEL_FILE = "qr_checkin_log.xlsx"
+# Google Sheets connector
+from sheets_connector import connect_to_google_sheet
+from gspread_dataframe import get_as_dataframe, set_with_dataframe
 
 # Title
 st.title("📷 QR Code Check-In System")
-
 st.markdown("Scan your QR code to check in. The app will capture your ID and timestamp it.")
 
-# Class to process video stream and detect QR codes
+# QR Scanner logic
 class QRScanner(VideoTransformerBase):
     def __init__(self):
         self.qr_data = None
@@ -32,7 +29,7 @@ class QRScanner(VideoTransformerBase):
 
         return img
 
-# Start the webcam scanner
+# Start webcam stream
 ctx = webrtc_streamer(key="qr-checkin", video_transformer_factory=QRScanner)
 
 if ctx.video_transformer:
@@ -42,25 +39,26 @@ if ctx.video_transformer:
 
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        # Save to Excel
+        # Data to be logged
         new_data = pd.DataFrame([{
             "Scanned ID": qr_data,
             "Check-In Time": timestamp
         }])
 
-        if os.path.exists(EXCEL_FILE):
-            existing_data = pd.read_excel(EXCEL_FILE)
+        try:
+            # Connect to Google Sheet
+            sheet = connect_to_google_sheet(sheet_name="QR Check-In Log")  # Use a specific sheet for QR logs
+            existing_data = get_as_dataframe(sheet).dropna(how="all")
             combined_data = pd.concat([existing_data, new_data], ignore_index=True)
-        else:
-            combined_data = new_data
+            set_with_dataframe(sheet, combined_data)
 
-        combined_data.to_excel(EXCEL_FILE, index=False)
-        st.info("Saved to Excel!")
+            st.info("✅ Check-in saved to Google Sheets!")
+        except Exception as e:
+            st.error(f"❌ Failed to save to Google Sheets: {e}")
 
-        # Reset qr_data so it doesn't keep saving
+        # Reset QR data so it doesn't keep saving repeatedly
         ctx.video_transformer.qr_data = None
 
-
-# footer
+# Footer
 st.markdown("---")
-st.caption("Provided by SJSU • Powered by Streamlit ")
+st.caption("Provided by SJSU • Powered by Streamlit")
