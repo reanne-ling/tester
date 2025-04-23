@@ -6,6 +6,9 @@ import cv2
 from pyzbar import pyzbar
 
 # Google Sheets connector
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from sheets_connector import connect_to_google_sheet
 from gspread_dataframe import get_as_dataframe, set_with_dataframe
 

@@ -1,5 +1,8 @@
 import streamlit as st
 import pandas as pd
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from sheets_connector import connect_to_google_sheet
 from gspread_dataframe import get_as_dataframe, set_with_dataframe
 
@@ -17,8 +20,10 @@ if admin_password != "admin": # this is where you enter in your password
 
 st.caption('this page should provide you a space to be able to view logs and filter out the records based on the excel/google sheet')
 
-if os.path.exists(EXCEL_FILE):
-    df = pd.read_excel(EXCEL_FILE)
+# ✅ Connect to the Google Sheet
+try:
+    sheet = connect_to_google_sheet()
+    df = get_as_dataframe(sheet)
 
     # Show full log
     st.subheader("Full Check-In/Check-Out Logs")
@@ -32,8 +37,8 @@ if os.path.exists(EXCEL_FILE):
         st.dataframe(filtered_df)
 
     st.markdown("### Download Logs")
-    st.download_button("Download Excel File", df.to_excel(index=False), file_name="checkin_log.xlsx")
-else:
+    st.download_button("Download Log as CSV", df.to_csv(index=False), file_name="checkin_log.csv")
+except Exception as e:
     st.error("No log file found yet.")
 
 # footer

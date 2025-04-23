@@ -1,11 +1,18 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from sheets_connector import connect_to_google_sheet
 from gspread_dataframe import get_as_dataframe, set_with_dataframe
 
 # for it to pop up on the sidebar
 st.sidebar.markdown("# Check-Out Form 📋")
+
+# Connect to the Google Sheet
+sheet = connect_to_google_sheet()
+df_existing = get_as_dataframe(sheet).fillna("")
 
 # Title
 st.title("Personnel Check-Out Form 📋")
@@ -32,37 +39,35 @@ with col1:
 with col2:
     order_time = st.time_input("Time", key="out_time")
 
+# Confirmation checkbox
+confirm_checkout = st.checkbox("I confirm that I am checking out.")
+
 # Check-out button
-if st.button("Check-Out!"):
+if st.button("Check-Out!") and confirm_checkout:
     if checkout_last_name and checkout_first_name:
-        # Read the existing data from the Excel file
-        if os.path.exists(EXCEL_FILE):
-            df_existing = pd.read_excel(EXCEL_FILE)
+        # Search for the matching entry
+        idx = df_existing[
+            (df_existing['Last Name'].str.lower() == checkout_last_name.lower()) &
+            (df_existing['First Name'].str.lower() == checkout_first_name.lower())
+        ].index
 
-            # Search for the corresponding row by Last Name and First Name
-            idx = df_existing[(df_existing['Last Name'] == checkout_last_name) & (df_existing['First Name'] == checkout_first_name)].index
+        if len(idx) > 0:
+            # Record Check-Out timestamp
+            checkout_timestamp = order_date.strftime("%Y-%m-%d") + " " + order_time.strftime("%H:%M")
 
-            if len(idx) > 0:
-                # Record the Check-Out timestamp
-                checkout_timestamp = datetime.now().strftime("%Y-%m-%d") + " " + checkout_time.strftime("%H:%M")
+            if "Check-Out Timestamp" not in df_existing.columns:
+                df_existing["Check-Out Timestamp"] = ""
 
-                # Add a new column for Check-Out Timestamp, only if it doesn't already exist
-                if "Check-Out Timestamp" not in df_existing.columns:
-                    df_existing["Check-Out Timestamp"] = None
+            df_existing.at[idx[0], "Check-Out Timestamp"] = checkout_timestamp
 
-                # Update the corresponding row with the Check-Out timestamp
-                df_existing.at[idx[0], "Check-Out Timestamp"] = checkout_timestamp
+            # Write back to Google Sheets
+            set_with_dataframe(sheet, df_existing)
 
-                # Save the updated data back to Excel
-                df_existing.to_excel(EXCEL_FILE, index=False)
-
-                st.success(f"Check-out successful! {checkout_first_name} {checkout_last_name}'s check-out time has been recorded.")
-            else:
-                st.error("No matching record found for the provided name.")
+            st.success(f"Check-out successful! {checkout_first_name} {checkout_last_name}'s time has been recorded.")
         else:
-            st.error("No check-in data found in the Excel file.")
+            st.error("No matching record found for the provided name.")
     else:
-        st.error("Please provide both first and last name for check-out.")
+        st.error("Please provide both first and last name to check out.")
 
 # footer
 st.markdown("---")

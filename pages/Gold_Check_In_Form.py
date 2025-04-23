@@ -3,6 +3,9 @@ import pandas as pd
 from datetime import datetime
 
 # Google Sheets connection
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from sheets_connector import connect_to_google_sheet
 from gspread_dataframe import get_as_dataframe, set_with_dataframe
 
@@ -93,23 +96,21 @@ if st.button("Submit"):
         "Email": email,
         "Departure Point": departure_point,
         "Remarks": remarks,
-        "Transportation": transportation,
+        "Transportation": other if transportation == "Other" else transportation,
         "ETD": f"{etd_date.strftime('%m/%d/%Y')} {etd_time.strftime('%H:%M')}",
         "ETA": f"{eta_date.strftime('%m/%d/%Y')} {eta_time.strftime('%H:%M')}",
         "Date/Time Ordered": f"{order_date.strftime('%m/%d/%Y')} {order_time.strftime('%H:%M')}"
     }
 
-    df_new = pd.DataFrame([data])
-
-    if os.path.exists(EXCEL_FILE):
-        df_existing = pd.read_excel(EXCEL_FILE)
-        df_combined = pd.concat([df_existing, df_new], ignore_index=True)
-    else:
-        df_combined = df_new
-
-    df_combined.to_excel(EXCEL_FILE, index=False)
-
-    st.success("Check-in submitted and saved to Excel!")
+    try:
+        sheet = connect_to_google_sheet()
+        df_existing = get_as_dataframe(sheet).fillna("")
+        df_new = pd.DataFrame([data])
+        df_updated = pd.concat([df_existing, df_new], ignore_index=True)
+        set_with_dataframe(sheet, df_updated)
+        st.success("✅ Check-in submitted and saved to Google Sheets!")
+    except Exception as e:
+        st.error(f"❌ Failed to submit: {e}")
 
 # footer
 st.markdown("---")
